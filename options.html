@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="common.css"/>
+    <style>
+        div.list {
+            display: flex; 
+            flex-wrap: wrap; 
+            width: 140px;
+        }
+        a:hover {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>链接列表</h1>
+    <h3>(点击下面链接图标删除)</h3>
+    <div class="list"></div>
+    <h1>添加链接</h1>
+    <div class="addForm">
+        <div><span>名称：</span><input id="name" placeholder="请输入名称" /></div>
+        <div><span>链接：</span><input id="url" placeholder="请输入链接" /></div>
+        <br/>
+        <div><button id="addBtn">添加</button></div>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html>

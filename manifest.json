@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "常用链接",
+    "version": "1.0.0",
+    "description": "管理常用链接，点击选择后快速访问",
+	"action": {
+		"default_icon": "images/icon.png",
+		"default_title": "常用链接",
+		"default_popup": "popup.html"
+	},
+    "permissions": ["activeTab", "storage", "scripting", "favicon"],
+    "options_page": "options.html"
+}

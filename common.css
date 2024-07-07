@@ -1,0 +1,14 @@
+a:not(.add-btn) {
+    text-decoration: none;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    line-height: 22px;
+    text-align: center;
+    color: transparent;
+    font-size: 14px;
+    margin: 5px 3px;
+    /* border: 1px solid red; */
+}
