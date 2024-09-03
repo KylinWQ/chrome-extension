@@ -1,5 +1,5 @@
 // Store CSS data in the "local" storage area.
-const storage = chrome.storage.local;
+const storage = chrome.storage.sync;
 const listDiv = document.querySelector('div.list');
 const message = document.querySelector('div.message');
 
