@@ -1,3 +1,107 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --background-color: #f8fafc;
+    --text-color: #1e293b;
+    --border-radius: 8px;
+    --box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+h1, h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.list {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1.5rem;
+}
+
+.addForm {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.addForm div {
+    margin-bottom: 1rem;
+}
+
+.addForm span {
+    display: inline-block;
+    width: 60px;
+    font-weight: 500;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    width: calc(100% - 70px);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* 管理按钮样式 */
+.manage-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.manage-btn {
+    flex: 1;
+    padding: 0.75rem;
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: all 0.2s;
+}
+
+.manage-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.manage-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
 a:not(.add-btn) {
     text-decoration: none;
     height: 22px;
@@ -10,5 +114,89 @@ a:not(.add-btn) {
     color: transparent;
     font-size: 14px;
     margin: 5px 3px;
-    /* border: 1px solid red; */
+    position: relative;
+    transition: transform 0.2s;
+}
+
+a:not(.add-btn):hover {
+    transform: scale(1.1);
+}
+
+a:not(.add-btn):hover::after {
+    content: "×";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 16px;
+    height: 16px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.popup-list a:not(.add-btn):hover::after {
+    content: none;
+}
+
+/* 管理链接样式 */
+.manage-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.2s;
+}
+
+.manage-link:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+    transform: translateX(5px);
+}
+
+.manage-link:active {
+    transform: translateX(0);
+}
+
+.manage-link::before {
+    content: "⚙️";
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.manage-link:hover::before {
+    transform: rotate(45deg);
+}
+
+/* 管理按钮样式 */
+.add-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+}
+
+.add-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
