@@ -8,7 +8,7 @@ loadLinks();
 function loadLinks() {
     storage.get('links', function (items) {
         if (items.links) {
-            let linksHtml = "";
+            let linksHtml = '';
             items.links.forEach(function (link) {
                 linksHtml += '<a href="' + link.url + '" target="_blank" style="background-image: url(\'' + faviconURL(link.url) + '\');" title="' + link.name + '[' + link.url + ']">' + link.name + '</a>';
             });

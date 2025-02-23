@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>链接管理</title>
     <link rel="stylesheet" type="text/css" href="common.css"/>
     <style>
-        div.list {
-            display: flex; 
-            flex-wrap: wrap; 
-            width: 140px;
+        .category-section {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
         }
-        a:hover {
-            background-color: lightblue;
+        
+        .category-section h4 {
+            color: var(--primary-color);
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .category-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .category-links a {
+            flex: 0 0 auto;
         }
     </style>
 </head>
 <body>
     <h1>链接列表</h1>
-    <h3>(点击下面链接图标删除)</h3>
+    <h3>(点击下面链接图标删除，拖拽可以排序)</h3>
     <div class="list"></div>
     <h1>添加链接</h1>
     <div class="addForm">
         <div><span>名称：</span><input id="name" placeholder="请输入名称" /></div>
         <div><span>链接：</span><input id="url" placeholder="请输入链接" /></div>
-        <br/>
         <div><button id="addBtn">添加</button></div>
     </div>
     <script src="options.js"></script>

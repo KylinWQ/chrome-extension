@@ -12,11 +12,10 @@ function saveLink() {
     const name = document.querySelector('input#name').value;
     const url = document.querySelector('input#url').value;
     if (name == '' || url == '') {
-        alert('Please enter a 名称 and 链接.');
+        alert('请输入名称和链接。');
         return;
     }
 
-    
     storage.get('links', function (items) {
         let linkArr;
         if (items.links) {
@@ -29,24 +28,26 @@ function saveLink() {
         document.querySelector('input#name').value = '';
         document.querySelector('input#url').value = '';
         loadLinks();
-        console.log('Saved link:', name, url);
+        console.log('保存链接:', name, url);
     });
-    
-    
 }
-
 
 function loadLinks() {
     storage.get('links', function (items) {
         if (items.links) {
-            let linksHtml = "";
+            let linksHtml = '';
             items.links.forEach(function (link) {
-                linksHtml += '<a href="#" style="background-image: url(\'' + faviconURL(link.url) + '\');" title="' + link.name + '[' + link.url + ']" linkName="' + link.name + '" linkUrl="' + link.url + '"/>';
+                linksHtml += '<a href="#" style="background-image: url(\'' + faviconURL(link.url) + '\');" title="' + link.name + '[' + link.url + ']" linkName="' + link.name + '" linkUrl="' + link.url + '"></a>';
             });
+            
             listDiv.innerHTML = linksHtml;
 
             listDiv.querySelectorAll("a").forEach(function (a) {
                 a.addEventListener('click', delLink);
+                a.addEventListener('dragstart', handleDragStart);
+                a.addEventListener('dragover', handleDragOver);
+                a.addEventListener('drop', handleDrop);
+                a.draggable = true;
             });
         }
     });
@@ -76,16 +77,15 @@ function delLink(e) {
     }
 }
 
-
 //判断对象是否相等
 function isObjectValueEqual(a, b) {
-	if(typeof(a) != "object" && typeof(b) != "object"){
-		if(a == b){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    if(typeof(a) != "object" && typeof(b) != "object"){
+        if(a == b){
+            return true;
+        }else{
+            return false;
+        }
+    }
     var aProps = Object.getOwnPropertyNames(a);
     var bProps = Object.getOwnPropertyNames(b);
 
@@ -106,26 +106,80 @@ function isObjectValueEqual(a, b) {
 
 //从数组中移除对象
 function removeObjWithArr(_arr,_obj) {
-	var length = _arr.length;
-	for(var i = 0; i < length; i++)
-	{
-		if(isObjectValueEqual(_arr[i],_obj))
-		{
-			if(i == 0)
-			{
-				_arr.shift(); //删除并返回数组的第一个元素
-				return;
-			}
-			else if(i == length-1)
-			{
-				_arr.pop();  //删除并返回数组的最后一个元素
-				return;
-			}
-			else
-			{
-				_arr.splice(i,1); //删除下标为i的元素
-				return;
-			}
-		}
-	}
+    var length = _arr.length;
+    for(var i = 0; i < length; i++)
+    {
+        if(isObjectValueEqual(_arr[i],_obj))
+        {
+            if(i == 0)
+            {
+                _arr.shift(); //删除并返回数组的第一个元素
+                return;
+            }
+            else if(i == length-1)
+            {
+                _arr.pop();  //删除并返回数组的最后一个元素
+                return;
+            }
+            else
+            {
+                _arr.splice(i,1); //删除下标为i的元素
+                return;
+            }
+        }
+    }
 };
+
+let dragSrcElement = null;
+
+function handleDragStart(e) {
+    dragSrcElement = this;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', '');
+    this.style.opacity = '0.4';
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation();
+    }
+
+    if (dragSrcElement != this) {
+        const srcName = dragSrcElement.getAttribute('linkName');
+        const srcUrl = dragSrcElement.getAttribute('linkUrl');
+        const destName = this.getAttribute('linkName');
+        const destUrl = this.getAttribute('linkUrl');
+
+        storage.get('links', function(items) {
+            if (items.links) {
+                const srcIndex = items.links.findIndex(link => 
+                    link.name === srcName && link.url === srcUrl);
+                const destIndex = items.links.findIndex(link => 
+                    link.name === destName && link.url === destUrl);
+
+                if (srcIndex !== -1 && destIndex !== -1) {
+                    const [removed] = items.links.splice(srcIndex, 1);
+                    items.links.splice(destIndex, 0, removed);
+                    storage.set({'links': items.links}, function() {
+                        loadLinks();
+                    });
+                }
+            }
+        });
+    }
+
+    dragSrcElement.style.opacity = '1';
+    return false;
+}
+
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+}
